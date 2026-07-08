@@ -1,0 +1,21 @@
+﻿# FoxSiteGuard — IOC (Indicators of Compromise) domains
+# One domain per line. Lines starting with # are ignored.
+# Prefix "re:" for regex patterns (e.g. re:.*-secure-login\..*)
+#
+# These are known phishing / malicious domains.
+micr0soft-login.net
+bank-secure-update.com
+app1e-id-verify.com
+goog1e-account.com
+paypa1-secure.com
+amaz0n-payment.com
+chase-banking-verify.com
+alipay-protect.cc
+taobao-security.cc
+ic1c-bank.com
+secure-bankofchina.cc
+microsoft-account-verify.xyz
+apple-id-support.xyz
+pr-huorong.com.cn
+hr-huorongapp.com.cn
+go0gle-account.com

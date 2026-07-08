@@ -1,0 +1,31 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+.venv/
+venv/
+
+# IDE
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp test scripts
+/test_*.py
+/append_*.py
+/fix_*.py
+/check_*.py
+
+# Generated test icons
+foxsiteguard/chrome-extension/icons/icon*.png
+# Build artifacts
+*.spec
+# Launcher exe
+FoxSiteGuard.exe

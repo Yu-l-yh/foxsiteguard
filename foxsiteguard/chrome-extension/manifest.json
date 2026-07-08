@@ -1,0 +1,41 @@
+﻿{
+  "manifest_version": 3,
+  "name": "FoxSiteGuard",
+  "version": "2.0.0",
+  "description": "Real-time anti-phishing protection. Analyzes URLs for domain spoofing, suspicious registration, SSL anomalies, and known malicious domains.",
+
+  "permissions": [
+    "tabs",
+    "webNavigation",
+    "storage"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "FoxSiteGuard",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src http://127.0.0.1:8000"
+  }
+}

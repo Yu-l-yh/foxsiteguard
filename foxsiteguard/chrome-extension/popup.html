@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FoxSiteGuard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 13px;
+      color: #1a1a2e;
+      background: #f8f9fc;
+    }
+    .header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header h2 { font-size: 15px; font-weight: 600; letter-spacing: 0.3px; }
+    .content { padding: 14px 18px; }
+    .url-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+      align-items: stretch;
+    }
+    .url-row input {
+      flex: 1;
+      padding: 9px 11px;
+      border: 1px solid #d0d3db;
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: inherit;
+      color: #333;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 0;
+    }
+    .url-row input:focus {
+      border-color: #1a1a2e;
+      box-shadow: 0 0 0 2px rgba(26,26,46,0.08);
+    }
+    .url-row input::placeholder { color: #aab; }
+    .btn-icon {
+      flex-shrink: 0;
+      width: 36px;
+      border: 1px solid #d0d3db;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-icon:hover { background: #f0f1f5; border-color: #bbb; }
+    .btn-icon svg { width: 16px; height: 16px; fill: none; stroke: #555; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Toggle switch */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      margin-bottom: 8px;
+    }
+    .toggle-switch {
+      position: relative;
+      width: 38px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: #27ae60;
+      border-radius: 22px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .toggle-slider::before {
+      content: "";
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 2px;
+      bottom: 2px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .toggle-switch input:not(:checked) + .toggle-slider {
+      background: #bdc3c7;
+    }
+    .toggle-switch input:not(:checked) + .toggle-slider::before {
+      transform: translateX(16px);
+    }
+    .toggle-label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .toggle-desc {
+      font-size: 11px;
+      color: #888;
+      margin-top: 1px;
+    }
+    .deep-warning {
+      font-size: 11px;
+      color: #c0392b;
+      padding: 6px 10px;
+      background: #fce4e4;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      display: none;
+      line-height: 1.4;
+    }
+    .deep-warning.visible { display: block; }
+
+    .mode-indicator {
+      font-size: 11px;
+      color: #888;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .status-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      text-align: center;
+      margin-bottom: 10px;
+      transition: background 0.3s;
+    }
+    .score-ring {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 5px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      font-size: 24px;
+      font-weight: 700;
+      transition: border-color 0.3s;
+    }
+    .level { font-size: 14px; font-weight: 600; margin-bottom: 6px; transition: color 0.3s; }
+    .reasons {
+      list-style: none;
+      margin-top: 8px;
+      text-align: left;
+    }
+    .reasons li {
+      padding: 4px 0;
+      font-size: 12px;
+      color: #666;
+      line-height: 1.4;
+    }
+    .reasons li::before { content: "\2022 "; color: #888; }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-primary {
+      background: #1a1a2e;
+      color: #fff;
+    }
+    .btn-primary:hover { background: #2a2a4e; }
+    .btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+    .error-msg {
+      color: #c0392b;
+      font-size: 12px;
+      margin-top: 8px;
+      text-align: center;
+      white-space: pre-line;
+    }
+    .footer {
+      padding: 10px 18px;
+      border-top: 1px solid #e0e3eb;
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+    }
+    .badge-offline, .badge-online {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+    .badge-offline { background: #e74c3c; }
+    .badge-online { background: #27ae60; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>FoxSiteGuard</h2>
+    <span style="font-size:11px;opacity:0.7;margin-left:auto;">
+      <span class="badge-offline" id="statusDot"></span>
+      <span id="statusLabel">offline</span>
+    </span>
+  </div>
+  <div class="content">
+    <div class="url-row">
+      <input type="text" id="urlInput" placeholder="Enter URL, e.g. pr-huorong.com.cn" autocomplete="off" spellcheck="false" />
+      <button class="btn-icon" id="btnUseCurrent" title="Use current tab URL">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </button>
+    </div>
+
+    <div class="toggle-row">
+      <label class="toggle-switch">
+        <input type="checkbox" id="safeToggle" checked />
+        <span class="toggle-slider"></span>
+      </label>
+      <div>
+        <div class="toggle-label">Safe Mode</div>
+        <div class="toggle-desc">No network requests to target sites</div>
+      </div>
+    </div>
+
+    <div class="deep-warning" id="deepWarning">
+       Deep mode: makes a TLS handshake to the target domain and a WHOIS query.
+       Your IP will be visible to the target server.
+    </div>
+
+    <div class="status-card" id="statusCard">
+      <div class="score-ring" id="scoreRing">--</div>
+      <div class="level" id="levelLabel">Not checked</div>
+      <ul class="reasons" id="reasonsList"></ul>
+    </div>
+    <div class="mode-indicator" id="modeIndicator"></div>
+
+    <button class="btn btn-primary" id="btnCheck">Check URL</button>
+    <div id="errorMsg" class="error-msg"></div>
+  </div>
+  <div class="footer">FoxSiteGuard v2.0  |  backend: 127.0.0.1:8000</div>
+  <script src="popup.js"></script>
+</body>
+</html>

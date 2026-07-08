@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#16213e"/>
+    </linearGradient>
+  </defs>
+  <path d="M64 8 L112 32 L112 64 C112 96 80 120 64 120 C48 120 16 96 16 64 L16 32 Z"
+    fill="url(#g)" stroke="#e74c3c" stroke-width="4"/>
+  <text x="64" y="80" text-anchor="middle" font-family="Arial" font-size="56" font-weight="bold" fill="#e74c3c">FS</text>
+</svg>

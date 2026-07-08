@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blocked — FoxSiteGuard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 540px;
+      text-align: center;
+    }
+    .shield {
+      font-size: 72px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #e74c3c;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: #aaa;
+      margin-bottom: 28px;
+    }
+    .card {
+      background: #16213e;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .card p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #ccc;
+    }
+    .card strong {
+      color: #e8e8e8;
+    }
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .btn-danger {
+      background: #e74c3c;
+      color: #fff;
+    }
+    .btn-danger:hover { background: #c0392b; }
+    .btn-secondary {
+      background: #2c3e50;
+      color: #ccc;
+    }
+    .btn-secondary:hover { background: #34495e; }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="shield">&#128737;</div>
+    <h1>Site Blocked</h1>
+    <p class="subtitle">FoxSiteGuard detected this page as potentially dangerous</p>
+
+    <div class="card">
+      <p>
+        <strong>Why was this blocked?</strong><br />
+        This site exhibited one or more signs of phishing:
+      </p>
+      <p style="margin-top:12px;">
+        &bull; Domain name closely resembles a known legitimate service<br />
+        &bull; Recently registered domain (common for phishing sites)<br />
+        &bull; Invalid or mismatched SSL certificate<br />
+        &bull; Matched known malicious domain records
+      </p>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-danger" id="btnGoBack">Go Back</button>
+      <button class="btn btn-secondary" id="btnProceed">Proceed Anyway</button>
+    </div>
+
+    <div class="footer">
+      FoxSiteGuard v2.0 &mdash; Anti-Phishing Protection
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("btnGoBack").addEventListener("click", () => {
+      history.back();
+    });
+    document.getElementById("btnProceed").addEventListener("click", () => {
+      // Remove this page and navigate back
+      history.back();
+    });
+  </script>
+</body>
+</html>
