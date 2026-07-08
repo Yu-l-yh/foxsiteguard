@@ -242,10 +242,26 @@ python -m foxsiteguard.main
 
 ## Limitations
 
+### Extension Distribution
+The Chrome extension is loaded as an unpacked extension via developer mode. This means:
+- Chrome shows a warning banner on every startup: "Disable developer mode extensions"
+- The extension does not auto-update -- you must manually reload it at `chrome://extensions`
+- It only works on machines where you repeat the setup steps
+- Publishing to the Chrome Web Store requires a $5 developer account registration and a review process, which is not included in this project
+
+### Detection Coverage
+This tool detects phishing through three mechanisms: IOC lists, domain similarity, and brand impersonation patterns. Its effectiveness depends on:
+
+- **IOC list maintenance**: `data/ioc_domains.txt` must be kept up to date. Without regular updates, known phishing domains will go undetected. Tools like Huorong, Kaspersky, or VirusTotal have dedicated threat intelligence teams -- this project relies on you.
+- **Brand list maintenance**: `data/official_domains.txt` must include the brands you want to protect against. Missing brands = no brand matching for those domains.
+- **Threshold tuning**: Similarity thresholds (0.85, 0.90, 0.95) and phishing prefix/suffix lists are set empirically without large-scale validation. Edge cases exist where a fake domain falls just below a threshold and escapes detection.
+- **Character substitution**: Simple substitutions (0 for o, 1 for l, etc.) may bypass fuzzy matching. These require explicit IOC entries or regex patterns.
+
+In short: this tool is effective against known phishing patterns and brand impersonation, but it is not a comprehensive anti-phishing solution. Treat it as a supplement to other security measures.
+
+### Technical Limitations
 - WHOIS lookups can be slow (8-second timeout in deep mode)
 - SSL validity alone is not a reliable phishing signal (many phishing sites use Let's Encrypt)
-- Character substitution attacks (0/o, 1/l) require regex patterns or IOC list updates
-- The official domain list must be maintained for brand matching to work effectively
 
 ## License
 
