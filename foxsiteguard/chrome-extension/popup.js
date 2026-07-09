@@ -159,6 +159,20 @@ $("btnCheck").addEventListener("click", doCheck);
 $("btnUseCurrent").addEventListener("click", () => { fillCurrentTab(); $("urlInput").focus(); });
 $("urlInput").addEventListener("keydown", (e) => { if (e.key === "Enter") doCheck(); });
 $("safeToggle").addEventListener("change", (e) => {
+  // Confirm before disabling safe mode
+  if (!e.target.checked) {
+    var confirmed = confirm(
+      "Disable Safe Mode?\n\n" +
+      "The server will make a TLS handshake to the target domain.\n" +
+      "Your IP will be visible to the target server.\n" +
+      "Only use this with domains you trust."
+    );
+    if (!confirmed) {
+      e.target.checked = true;
+      updateDeepWarning(false);
+      return;
+    }
+  }
   chrome.storage.local.set({ safeMode: e.target.checked });
   updateDeepWarning(!e.target.checked);
 });
